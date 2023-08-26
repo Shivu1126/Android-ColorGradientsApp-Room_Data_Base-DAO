@@ -176,4 +176,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gradientList.clear();
+        gradientList.addAll(database.mainDAO().getAll());
+        gradientAdapter.notifyDataSetChanged();
+    }
 }
