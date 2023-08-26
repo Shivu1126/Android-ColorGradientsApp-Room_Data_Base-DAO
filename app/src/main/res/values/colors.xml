@@ -10,6 +10,7 @@
 
     <color name="home_bg">#5186D6C2</color>
     <color name="save_bg">#7E0066FF</color>
+    <color name="button_bg">#0066FF</color>
 
 
 </resources>

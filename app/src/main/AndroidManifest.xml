@@ -12,6 +12,9 @@
         android:theme="@style/Theme.ColorGradients.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".FavouriteGradientsActivity"
+            android:exported="false" />
+        <activity
             android:name=".GradientCreateActivity"
             android:exported="false" />
         <activity

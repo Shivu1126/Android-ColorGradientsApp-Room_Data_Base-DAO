@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidwithshiv.colorgradients.common.Common;
@@ -29,6 +30,7 @@ public class GradientCreateActivity extends AppCompatActivity {
     private MaterialCardView pickColor1Button, pickColor2Button, saveData, pickColor1bg, pickColor2bg;
     private TextView colorCode1Tv, colorCode2Tv;
     private EditText gradientNameEt;
+    private ImageView backButton;
 
     private void init() {
         context = GradientCreateActivity.this;
@@ -40,6 +42,7 @@ public class GradientCreateActivity extends AppCompatActivity {
         colorCode1Tv = findViewById(R.id.color_1_code);
         colorCode2Tv = findViewById(R.id.color_2_code);
         gradientNameEt = findViewById(R.id.gradient_name);
+        backButton = findViewById(R.id.back);
     }
 
     @Override
@@ -50,6 +53,13 @@ public class GradientCreateActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.home_bg));
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         pickColor1Button.setOnClickListener(new View.OnClickListener() {
             @Override

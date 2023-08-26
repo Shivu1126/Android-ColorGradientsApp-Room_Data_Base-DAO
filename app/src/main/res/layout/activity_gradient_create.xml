@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     android:background="@color/home_bg"
     tools:context=".GradientCreateActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_arrow_back_24"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="Create Gradient "
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,16 +42,20 @@
             android:layout_centerHorizontal="true">
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/pick_color_one"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="30dp"
-                android:backgroundTint="@color/home_bg"
+                android:backgroundTint="@color/button_bg"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/black">
+                app:strokeColor="@color/black"
+                app:cardCornerRadius="5dp"
+                android:elevation="0dp"
+                app:cardElevation="0dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pick 1st color"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:layout_gravity="center"/>
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
@@ -62,16 +87,20 @@
             android:layout_marginTop="20dp">
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/pick_color_second"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="30dp"
-                android:backgroundTint="@color/home_bg"
+                android:backgroundTint="@color/button_bg"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/black">
+                app:strokeColor="@color/black"
+                app:cardCornerRadius="5dp"
+                android:elevation="0dp"
+                app:cardElevation="0dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pick 2nd color"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:layout_gravity="center"/>
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
@@ -127,9 +156,11 @@
             android:layout_below="@id/name_layout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            app:strokeColor="@color/save_bg"
+            app:strokeColor="@color/button_bg"
             app:strokeWidth="2dp"
             app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            app:cardElevation="0dp"
             android:backgroundTint="@android:color/transparent">
             <TextView
                 android:layout_width="wrap_content"
@@ -138,7 +169,8 @@
                 android:textSize="15sp"
                 android:layout_gravity="center"
                 android:textStyle="bold"
-                android:textColor="@color/save_bg"/>
+                android:textColor="@color/button_bg"
+                android:background="@android:color/transparent"/>
         </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
     </RelativeLayout>

@@ -20,7 +20,9 @@ public interface MainDAO {
     @Query("SELECT * FROM Gradient ORDER BY gradient_id DESC")
     List<Gradient> getAll();
 
-
     @Query("UPDATE Gradient SET gradient_favourite = :isFavourite WHERE gradient_id = :id")
     void favourite(int id, boolean isFavourite);
+
+    @Query("SELECT * FROM Gradient WHERE gradient_favourite = :b ORDER BY gradient_id DESC")
+    List<Gradient> getFavourite(boolean b);
 }

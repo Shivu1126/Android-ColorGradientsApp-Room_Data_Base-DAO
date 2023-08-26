@@ -12,12 +12,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -29,99 +25,53 @@ import com.androidwithshiv.colorgradients.models.Gradient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
-
-
+public class FavouriteGradientsActivity extends AppCompatActivity {
     private Context context;
-    private ImageView addGradient, favouriteGradient;
-    private EditText searchEt;
-    private RecyclerView gradientRecyclerView;
+    private RecyclerView gradientRecyclerViewFav;
     private RelativeLayout noData;
+    private ImageView backButton;
     GradientAdapter gradientAdapter;
     List<Gradient> gradientList;
-    Gradient selectedGradient;
     RoomDB database;
-
     private void init(){
-        context = HomeActivity.this;
-
-        addGradient = findViewById(R.id.add_gradient);
-        favouriteGradient = findViewById(R.id.yours_favrt);
-        searchEt = findViewById(R.id.editText_search);
-        gradientRecyclerView = findViewById(R.id.gradients_home_rv);
+        context = FavouriteGradientsActivity.this;
+        gradientRecyclerViewFav = findViewById(R.id.gradients_favrt_rv);
         noData = findViewById(R.id.no_data);
-
+        backButton = findViewById(R.id.back);
         gradientList = new ArrayList<>();
         database = RoomDB.getInstance(context);
-        gradientList = database.mainDAO().getAll();
+        gradientList = database.mainDAO().getFavourite(true);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_favourite_gradients);
         init();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.home_bg));
 
-        addGradient.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //color picker activity
-                Intent intent = new Intent(HomeActivity.this, GradientCreateActivity.class);
-                startActivityForResult(intent, 101);
+                onBackPressed();
             }
         });
-
-        favouriteGradient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //favourite activity
-                startActivity(new Intent(HomeActivity.this, FavouriteGradientsActivity.class));
-            }
-        });
-
-        searchEt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
-            }
-        });
-
         updateGradientsList(gradientList);
     }
-    private void updateGradientsList(List<Gradient> gradientList){
-        gradientRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
-        gradientRecyclerView.setHasFixedSize(true);
+
+    private void updateGradientsList(List<Gradient> gradientList) {
+        gradientRecyclerViewFav.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        gradientRecyclerViewFav.setHasFixedSize(true);
         gradientAdapter = new GradientAdapter(context, gradientList, gradientClickListener);
-        gradientRecyclerView.setAdapter(gradientAdapter);
-   //        List<Gradient> historyList =?
+        gradientRecyclerViewFav.setAdapter(gradientAdapter);
+        //        List<Gradient> historyList =?
         if(gradientList.size()==0){
             noData.setVisibility(View.VISIBLE);
         }
         else{
             noData.setVisibility(View.GONE);
         }
-    }
-
-    private void filter(String txt){
-        List<Gradient> filterList = new ArrayList<>();
-        for (Gradient singleGradient: gradientList) {
-            if(singleGradient.getGradientName().toLowerCase().contains(txt.toLowerCase())){
-                filterList.add(singleGradient);
-            }
-        }
-        gradientAdapter.filteredList(filterList);
     }
 
     private final GradientClickListener gradientClickListener = new GradientClickListener() {
@@ -140,7 +90,13 @@ public class HomeActivity extends AppCompatActivity {
                 Common.showToast(context, "Added to favourite..!");
             }
             gradientList.clear();
-            gradientList.addAll(database.mainDAO().getAll());
+            gradientList.addAll(database.mainDAO().getFavourite(true));
+            if(gradientList.isEmpty()){
+                noData.setVisibility(View.VISIBLE);
+            }
+            else {
+                noData.setVisibility(View.GONE);
+            }
             gradientAdapter.notifyDataSetChanged();
         }
 
