@@ -77,7 +77,9 @@ public class FavouriteGradientsActivity extends AppCompatActivity {
     private final GradientClickListener gradientClickListener = new GradientClickListener() {
         @Override
         public void onClickEdit(Gradient gradient) {
-
+            Intent intent = new Intent(FavouriteGradientsActivity.this, GradientCreateActivity.class);
+            intent.putExtra("old_gradient", gradient);
+            startActivityForResult(intent, 102);
         }
 
         @Override
@@ -128,6 +130,17 @@ public class FavouriteGradientsActivity extends AppCompatActivity {
                 noData.setVisibility(View.GONE);
                 gradientList.clear();
                 gradientList.addAll(database.mainDAO().getAll());
+                gradientAdapter.notifyDataSetChanged();
+            }
+        }
+        else if (requestCode == 102) {
+            if(resultCode==Activity.RESULT_OK){
+                Gradient updateGradient = (Gradient) data.getSerializableExtra("gradientObj");
+                database.mainDAO().update(updateGradient.getId(), updateGradient.getGradientName(),
+                        updateGradient.getGradientColorStart(), updateGradient.getGradientColorEnd(),
+                        updateGradient.isFavourite());
+                gradientList.clear();
+                gradientList.addAll(database.mainDAO().getFavourite(true));
                 gradientAdapter.notifyDataSetChanged();
             }
         }

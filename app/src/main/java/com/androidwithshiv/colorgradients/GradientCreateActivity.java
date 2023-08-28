@@ -31,7 +31,9 @@ public class GradientCreateActivity extends AppCompatActivity {
     private TextView colorCode1Tv, colorCode2Tv;
     private EditText gradientNameEt;
     private ImageView backButton;
-
+    private boolean isFavourite;
+    Gradient gradient;
+    boolean isOldGradient = false;
     private void init() {
         context = GradientCreateActivity.this;
         pickColor1Button = findViewById(R.id.pick_color_one);
@@ -43,6 +45,7 @@ public class GradientCreateActivity extends AppCompatActivity {
         colorCode2Tv = findViewById(R.id.color_2_code);
         gradientNameEt = findViewById(R.id.gradient_name);
         backButton = findViewById(R.id.back);
+        isFavourite = false;
     }
 
     @Override
@@ -53,6 +56,21 @@ public class GradientCreateActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.home_bg));
+
+        gradient = new Gradient();
+        try{
+            gradient = (Gradient) getIntent().getSerializableExtra("old_gradient");
+            gradientNameEt.setText(gradient.getGradientName());
+            colorCode1Tv.setText(gradient.getGradientColorStart());
+            colorCode2Tv.setText(gradient.getGradientColorEnd());
+            pickColor1bg.setCardBackgroundColor(Common.hexToIntColorCode(gradient.getGradientColorStart()));
+            pickColor2bg.setCardBackgroundColor(Common.hexToIntColorCode(gradient.getGradientColorEnd()));
+            isFavourite = gradient.isFavourite();
+            isOldGradient = true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +106,14 @@ public class GradientCreateActivity extends AppCompatActivity {
                     Log.d("color_code_1", colorCode1);
                     Log.d("color_code_2", colorCode2);
 
-                    Gradient gradient = new Gradient();
+                    if(!isOldGradient)
+                    {
+                        gradient = new Gradient();
+                    }
                     gradient.setGradientName(gradientName);
                     gradient.setGradientColorStart(colorCode1);
                     gradient.setGradientColorEnd(colorCode2);
-                    gradient.setFavourite(false);
+                    gradient.setFavourite(isFavourite);
 
                     Intent intent = new Intent();
                     intent.putExtra("gradientObj", gradient);

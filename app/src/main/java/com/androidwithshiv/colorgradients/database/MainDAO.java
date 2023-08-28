@@ -25,4 +25,9 @@ public interface MainDAO {
 
     @Query("SELECT * FROM Gradient WHERE gradient_favourite = :b ORDER BY gradient_id DESC")
     List<Gradient> getFavourite(boolean b);
+
+    @Query("UPDATE Gradient SET gradient_name = :gradientName, " +
+            "gradient_color_start = :colorStart, gradient_color_end = :colorEnd, " +
+            "gradient_favourite = :favourite WHERE gradient_id = :gradientId")
+    void update(int gradientId,String gradientName, String colorStart, String colorEnd, boolean favourite);
 }
