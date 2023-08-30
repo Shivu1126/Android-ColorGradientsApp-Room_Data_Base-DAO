@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ColorGradients</string>
+    <string name="app_name">Color Gradients</string>
     <string name="search_hint">Search gradient…</string>
     <string name="no_data_label">No Gradients Here..Please Add Gradient</string>
     <string name="no_wishlist_label">Please Add Gradients to Favourites</string>
