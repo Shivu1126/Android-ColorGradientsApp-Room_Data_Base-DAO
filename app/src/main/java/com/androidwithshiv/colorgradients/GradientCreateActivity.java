@@ -28,7 +28,7 @@ public class GradientCreateActivity extends AppCompatActivity {
 
     private Context context;
     private MaterialCardView pickColor1Button, pickColor2Button, saveData, pickColor1bg, pickColor2bg;
-    private TextView colorCode1Tv, colorCode2Tv;
+    private TextView colorCode1Tv, colorCode2Tv, topTitleTv;
     private EditText gradientNameEt;
     private ImageView backButton;
     private boolean isFavourite;
@@ -44,6 +44,7 @@ public class GradientCreateActivity extends AppCompatActivity {
         colorCode1Tv = findViewById(R.id.color_1_code);
         colorCode2Tv = findViewById(R.id.color_2_code);
         gradientNameEt = findViewById(R.id.gradient_name);
+        topTitleTv = findViewById(R.id.top_title);
         backButton = findViewById(R.id.back);
         isFavourite = false;
     }
@@ -57,6 +58,7 @@ public class GradientCreateActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.home_bg));
 
+        topTitleTv.setText("Create Gradient");
         gradient = new Gradient();
         try{
             gradient = (Gradient) getIntent().getSerializableExtra("old_gradient");
@@ -66,6 +68,7 @@ public class GradientCreateActivity extends AppCompatActivity {
             pickColor1bg.setCardBackgroundColor(Common.hexToIntColorCode(gradient.getGradientColorStart()));
             pickColor2bg.setCardBackgroundColor(Common.hexToIntColorCode(gradient.getGradientColorEnd()));
             isFavourite = gradient.isFavourite();
+            topTitleTv.setText("Edit Gradient");
             isOldGradient = true;
         }
         catch (Exception e){
