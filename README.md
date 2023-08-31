@@ -18,6 +18,7 @@
 - QuadFlask Dependency (For color pick).
 
 ## ScreenShots
+![Color Gradients UI](https://github.com/Shivu1126/Android-ColorGradientsApp-Room_Data_Base-DAO/assets/99593409/727e58a1-2e0c-486d-bce5-803a8e0933c1)
 
 ## Contributions
 **If you have any questions or suggestions, feel free to contact us at siva11vkavis@gmail.com or shiv1126yt@gmail.com .**
