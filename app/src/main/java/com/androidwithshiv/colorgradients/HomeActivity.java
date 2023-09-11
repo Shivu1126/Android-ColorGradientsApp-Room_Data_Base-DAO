@@ -122,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
                 filterList.add(singleGradient);
             }
         }
-        gradientAdapter.filteredList(filterList);
+        this.gradientAdapter.filteredList(filterList);
     }
 
     private final GradientClickListener gradientClickListener = new GradientClickListener() {
@@ -192,7 +192,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         gradientList.clear();
         gradientList.addAll(database.mainDAO().getAll());
-        gradientAdapter.notifyDataSetChanged();
+        this.gradientAdapter.notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -201,6 +201,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         gradientList.clear();
         gradientList.addAll(database.mainDAO().getAll());
-        gradientAdapter.notifyDataSetChanged();
+        this.gradientAdapter.notifyDataSetChanged();
     }
 }
