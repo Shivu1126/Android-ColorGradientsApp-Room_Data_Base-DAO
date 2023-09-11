@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -82,6 +83,7 @@ public class FavouriteGradientsActivity extends AppCompatActivity {
             startActivityForResult(intent, 102);
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         public void onClickFavourite(Gradient gradient) {
             if(gradient.isFavourite()){
@@ -119,6 +121,7 @@ public class FavouriteGradientsActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
