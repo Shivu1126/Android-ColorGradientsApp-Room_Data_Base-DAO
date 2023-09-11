@@ -178,6 +178,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         } else if (requestCode == 102) {
             if(resultCode==Activity.RESULT_OK){
+                Log.d("edit-success", "true");
                 Gradient updateGradient = (Gradient) data.getSerializableExtra("gradientObj");
                 database.mainDAO().update(updateGradient.getId(), updateGradient.getGradientName(),
                         updateGradient.getGradientColorStart(), updateGradient.getGradientColorEnd(),
