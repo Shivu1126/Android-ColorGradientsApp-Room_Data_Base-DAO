@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -163,34 +164,37 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==101){
             if(resultCode== Activity.RESULT_OK){
+                Log.d("create-success", "true");
                 Gradient new_gradient = (Gradient) data.getSerializableExtra("gradientObj");
                 database.mainDAO().insert(new_gradient);
                 noData.setVisibility(View.GONE);
-                gradientList.clear();
-                gradientList.addAll(database.mainDAO().getAll());
-                gradientAdapter.notifyDataSetChanged();
+//                gradientList.clear();
+//                gradientList.addAll(database.mainDAO().getAll());
+//                gradientAdapter.notifyDataSetChanged();
             }
         } else if (requestCode == 102) {
             if(resultCode==Activity.RESULT_OK){
-                Log.d("edit-success", "true");
+
                 Gradient updateGradient = (Gradient) data.getSerializableExtra("gradientObj");
                 database.mainDAO().update(updateGradient.getId(), updateGradient.getGradientName(),
                         updateGradient.getGradientColorStart(), updateGradient.getGradientColorEnd(),
                         updateGradient.isFavourite());
-                gradientList.clear();
-                gradientList.addAll(database.mainDAO().getAll());
-                gradientAdapter.notifyDataSetChanged();
+                Log.d("edit-update", "true");
             }
         }
-
+        gradientList.clear();
+        gradientList.addAll(database.mainDAO().getAll());
+        gradientAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
