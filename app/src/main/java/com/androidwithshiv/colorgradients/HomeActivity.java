@@ -133,6 +133,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivityForResult(intent, 102);
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         public void onClickFavourite(Gradient gradient) {
             if(gradient.isFavourite()){
