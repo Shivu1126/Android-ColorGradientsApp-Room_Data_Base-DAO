@@ -143,9 +143,7 @@ public class HomeActivity extends AppCompatActivity {
                 database.mainDAO().favourite(gradient.getId(), true);
                 Common.showToast(context, "Added to favourite..!");
             }
-            gradientList.clear();
-            gradientList.addAll(database.mainDAO().getAll());
-            gradientAdapter.notifyDataSetChanged();
+            refresh();
         }
 
         @Override
@@ -190,17 +188,19 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("edit-update", "true");
             }
         }
+        refresh();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refresh(){
         gradientList.clear();
         gradientList.addAll(database.mainDAO().getAll());
         this.gradientAdapter.notifyDataSetChanged();
     }
-
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
-        gradientList.clear();
-        gradientList.addAll(database.mainDAO().getAll());
-        this.gradientAdapter.notifyDataSetChanged();
+        refresh();
     }
 }
